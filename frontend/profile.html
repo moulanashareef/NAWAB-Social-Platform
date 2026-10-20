@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="View creator profiles and published posts on Nawab Social Platform.">
+
+  <title>User Profile — Nawab</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/nawab-22.css">
+
+  <style>
+    .profile-avatar-huge {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #151515;
+    }
+
+    .avatar-loading {
+      opacity: 0.7;
+    }
+
+    .profile-loading-message {
+      color: var(--text-muted);
+      padding: 1.5rem 0;
+    }
+
+    .profile-error-message {
+      color: var(--accent-rose, #fb7185);
+      padding: 1.5rem 0;
+    }
+
+    .profile-empty-message {
+      color: var(--text-muted);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    #profileActionBtnContainer {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    #profileActionBtnContainer button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #profileGithub {
+      color: var(--accent-primary);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    #profileGithub:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-left">
+      <div>
+        <a href="index.html" class="brand-logo-social">
+          <div class="brand-icon">
+            <svg width="22" height="22" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M13 10V3L4 14h7v7l9-11h-7z">
+              </path>
+            </svg>
+          </div>
+          <div class="brand-name-text">Nawab</div>
+        </a>
+
+        <nav class="nav-links-menu">
+          <a href="index.html" class="nav-menu-item">
+            <svg width="22" height="22" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+              </path>
+            </svg>
+            <span>Home Feed</span>
+          </a>
+
+          <a href="profile.html" class="nav-menu-item active">
+            <svg width="22" height="22" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+              </path>
+            </svg>
+            <span>My Profile</span>
+          </a>
+
+          <a href="auth.html" class="nav-menu-item">
+            <svg width="22" height="22" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+              </path>
+            </svg>
+            <span>Switch Account</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="user-mini-card" id="userMiniCard"></div>
+    </aside>
+
+    <!-- CENTER PROFILE CONTENT -->
+    <main class="main-feed-column">
+
+      <div style="margin-bottom:1rem;">
+        <a href="index.html"
+          style="display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);font-size:.9rem;font-weight:600;">
+          ← Back to News Feed
+        </a>
+      </div>
+
+      <!-- PROFILE HEADER -->
+      <section class="profile-cover-card" id="profileHeaderCard">
+
+        <img
+          id="profileBannerImg"
+          src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80"
+          alt="Profile banner"
+          class="profile-banner-img"
+        >
+
+        <div class="profile-info-block">
+
+          <div class="profile-avatar-row">
+            <img
+              id="profileAvatarImg"
+              src="https://placehold.co/200x200?text=Nawab"
+              alt="Profile avatar"
+              class="profile-avatar-huge"
+              referrerpolicy="no-referrer"
+            >
+
+            <div id="profileActionBtnContainer"></div>
+          </div>
+
+          <h1 class="profile-fullname" id="profileName">
+            Loading Profile...
+          </h1>
+
+          <div class="profile-handle-sub" id="profileHandle">
+            @loading
+          </div>
+
+          <p class="profile-bio-text" id="profileBio">
+            Loading profile information...
+          </p>
+
+          <div class="profile-meta-row">
+            <span id="profileLocation">📍 Location not provided</span>
+
+            <span id="profileWebsite">
+              🔗
+              <a
+                id="profileGithub"
+                href="https://github.com/moulanashareef"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit GitHub profile"
+              >github.com/moulanashareef</a>
+            </span>
+
+            <span id="profileJoined">📅 Joined date unavailable</span>
+          </div>
+
+          <div class="profile-stats-bar">
+            <div class="stat-metric">
+              <strong id="statPostsCount">0</strong> Posts
+            </div>
+
+            <div class="stat-metric">
+              <strong id="statFollowersCount">0</strong> Followers
+            </div>
+
+            <div class="stat-metric">
+              <strong id="statFollowingCount">0</strong> Following
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PROFILE POSTS -->
+      <h2 style="font-size:1.25rem;font-weight:700;margin:1.5rem 0 1.25rem;">
+        Published Posts
+      </h2>
+
+      <div id="userPostsStream" aria-live="polite">
+        <p class="profile-loading-message">Loading posts...</p>
+      </div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar-right">
+      <div class="widget-card">
+        <h3 class="widget-title">
+          <span>👥</span> Suggested Creators
+        </h3>
+        <div id="whoToFollowList"></div>
+      </div>
+
+      <div class="widget-card">
+        <h3 class="widget-title">
+          <span>📈</span> Trending Topics
+        </h3>
+        <div id="trendingTagsList"></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Load dependencies in order -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    'use strict';
+
+    let currentProfileUserId = null;
+
+    // Your GitHub profile
+    const MY_GITHUB_URL = 'https://github.com/moulanashareef';
+
+    const FALLBACK_AVATAR =
+      'https://placehold.co/200x200?text=Nawab';
+
+    const FALLBACK_BANNER =
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80';
+
+    function safeImageURL(value, fallback) {
+      if (typeof value !== 'string' || !value.trim()) {
+        return fallback;
+      }
+
+      try {
+        const parsed = new URL(value, window.location.href);
+
+        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+          return parsed.href;
+        }
+      } catch (error) {
+        console.warn('Invalid image URL:', error);
+      }
+
+      return fallback;
+    }
+
+    // Always display your GitHub username and use the correct URL.
+    function setGitHubLink() {
+      const link = document.getElementById('profileGithub');
+      if (!link) return;
+
+      link.href = MY_GITHUB_URL;
+      link.textContent = 'github.com/moulanashareef';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+
+    function setProfileAvatar(user) {
+      const avatar = document.getElementById('profileAvatarImg');
+      if (!avatar) return;
+
+      avatar.onerror = function () {
+        this.onerror = null;
+        this.src = FALLBACK_AVATAR;
+      };
+
+      avatar.src = safeImageURL(user?.avatar, FALLBACK_AVATAR);
+    }
+
+    function setProfileBanner(user) {
+      const banner = document.getElementById('profileBannerImg');
+      if (!banner) return;
+
+      banner.onerror = function () {
+        this.onerror = null;
+        this.src = FALLBACK_BANNER;
+      };
+
+      banner.src = safeImageURL(user?.banner, FALLBACK_BANNER);
+    }
+
+    function setText(id, value, fallback = '') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.textContent = value ?? fallback;
+      }
+    }
+
+    function setProfileError(message) {
+      setText('profileName', 'Unable to load profile');
+      setText('profileHandle', '');
+      setText('profileBio', message);
+
+      const stream = document.getElementById('userPostsStream');
+
+      if (stream) {
+        const paragraph = document.createElement('p');
+        paragraph.className = 'profile-error-message';
+        paragraph.textContent = message;
+        stream.replaceChildren(paragraph);
+      }
+    }
+
+    async function loadUserProfile() {
+      const params = new URLSearchParams(window.location.search);
+      const currentUser = window.auth?.getUser?.();
+      const requestedId = params.get('id');
+
+      const profileId = requestedId ||
+        (currentUser?.id != null ? String(currentUser.id) : null);
+
+      currentProfileUserId = profileId;
+
+      setGitHubLink();
+
+      if (!profileId) {
+        setProfileError(
+          'Sign in to view your profile, or open a creator profile using its profile link.'
+        );
+        return;
+      }
+
+      if (!window.api || typeof window.api.getUser !== 'function') {
+        setProfileError('Profile service is unavailable. Check js/api.js.');
+        return;
+      }
+
+      try {
+        const response = await window.api.getUser(profileId);
+
+        if (!response?.success || !response.user) {
+          setText('profileName', 'Profile not found');
+          setText('profileHandle', '');
+          setText('profileBio', 'This profile could not be found.');
+
+          const stream = document.getElementById('userPostsStream');
+
+          if (stream) {
+            const paragraph = document.createElement('p');
+            paragraph.className = 'profile-empty-message';
+            paragraph.textContent = 'No profile information is available.';
+            stream.replaceChildren(paragraph);
+          }
+
+          return;
+        }
+
+        const user = response.user;
+
+        setText('profileName', user.name || 'Nawab User');
+        setText(
+          'profileHandle',
+          user.handle ? '@' + user.handle : ''
+        );
+        setText(
+          'profileBio',
+          user.bio || 'Welcome to my Nawab profile.'
+        );
+
+        setProfileAvatar(user);
+        setProfileBanner(user);
+        setGitHubLink();
+
+        setText(
+          'profileLocation',
+          user.location
+            ? '📍 ' + user.location
+            : '📍 Location not provided'
+        );
+
+        setText(
+          'profileJoined',
+          user.joinedDate
+            ? '📅 Joined ' + user.joinedDate
+            : '📅 Joined date unavailable'
+        );
+
+        setText('statPostsCount', user.postsCount ?? 0);
+        setText('statFollowersCount', user.followersCount ?? 0);
+        setText('statFollowingCount', user.followingCount ?? 0);
+
+        renderProfileAction(user, currentUser);
+
+        await loadUserPostsOnly(user.id ?? profileId);
+
+      } catch (error) {
+        console.error('Failed to load profile:', error);
+
+        setProfileError(
+          'Could not connect to the server. Make sure your backend is running on port 5001.'
+        );
+      }
+    }
+
+    function renderProfileAction(user, currentUser) {
+      const container =
+        document.getElementById('profileActionBtnContainer');
+
+      if (!container) return;
+
+      container.replaceChildren();
+
+      const isSelf = currentUser?.id != null &&
+        user.id != null &&
+        String(currentUser.id) === String(user.id);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn-follow-toggle';
+
+      if (isSelf) {
+        button.textContent = 'Edit Profile';
+
+        button.addEventListener('click', () => {
+          window.showToast?.(
+            'Profile editing is not connected yet.',
+            'info'
+          );
+        });
+      } else {
+        const isFollowing = Boolean(user.isFollowing);
+
+        button.textContent = isFollowing ? 'Following' : '+ Follow';
+
+        if (isFollowing) {
+          button.classList.add('following');
+        }
+
+        button.id = 'profileFollowBtn';
+
+        button.addEventListener('click', () => {
+          toggleProfileFollow(user.id);
+        });
+      }
+
+      container.appendChild(button);
+    }
+
+    async function toggleProfileFollow(targetId) {
+      const button = document.getElementById('profileFollowBtn');
+
+      if (!button || targetId == null) return;
+
+      if (!window.auth?.isLoggedIn?.()) {
+        window.showToast?.('Please sign in to follow users.', 'error');
+        return;
+      }
+
+      if (!window.api ||
+          typeof window.api.toggleFollow !== 'function') {
+        window.showToast?.('Follow service is unavailable.', 'error');
+        return;
+      }
+
+      button.disabled = true;
+
+      try {
+        const response = await window.api.toggleFollow(targetId);
+
+        if (!response?.success) {
+          window.showToast?.(
+            response?.message || 'Could not update follow status.',
+            'error'
+          );
+          return;
+        }
+
+        const following = Boolean(response.isFollowing);
+
+        button.textContent = following ? 'Following' : '+ Follow';
+        button.classList.toggle('following', following);
+
+        if (response.targetFollowersCount !== undefined) {
+          setText('statFollowersCount', response.targetFollowersCount);
+        }
+
+        window.showToast?.(
+          following ? 'You followed this creator!' : 'Unfollowed.',
+          following ? 'success' : 'info'
+        );
+
+      } catch (error) {
+        console.error('Follow action failed:', error);
+        window.showToast?.('Failed to update follow status.', 'error');
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function loadUserPostsOnly(userId) {
+      const stream = document.getElementById('userPostsStream');
+      if (!stream) return;
+
+      const loading = document.createElement('p');
+      loading.className = 'profile-loading-message';
+      loading.textContent = 'Loading posts...';
+      stream.replaceChildren(loading);
+
+      try {
+        if (!window.api ||
+            typeof window.api.getFeed !== 'function') {
+          throw new Error('api.getFeed() is unavailable.');
+        }
+
+        const response = await window.api.getFeed('all');
+
+        if (!response?.success || !Array.isArray(response.posts)) {
+          console.error('Unexpected posts API response:', response);
+
+          const paragraph = document.createElement('p');
+          paragraph.className = 'profile-error-message';
+          paragraph.textContent =
+            'Unable to load posts. Check the posts API response.';
+          stream.replaceChildren(paragraph);
+          return;
+        }
+
+        const userPosts = response.posts.filter(post =>
+          post.author &&
+          post.author.id != null &&
+          String(post.author.id) === String(userId)
+        );
+
+        console.log('Profile ID:', userId);
+        console.log('Posts returned by API:', response.posts.length);
+        console.log('Posts matching profile:', userPosts.length);
+
+        if (userPosts.length === 0) {
+          const paragraph = document.createElement('p');
+          paragraph.className = 'profile-empty-message';
+          paragraph.textContent = 'No posts found for this profile.';
+          stream.replaceChildren(paragraph);
+          return;
+        }
+
+        if (!window.app ||
+            typeof window.app.renderPostCard !== 'function') {
+          console.error('window.app.renderPostCard is unavailable.');
+
+          const paragraph = document.createElement('p');
+          paragraph.className = 'profile-error-message';
+          paragraph.textContent =
+            'Post display code is unavailable. Check js/app.js.';
+          stream.replaceChildren(paragraph);
+          return;
+        }
+
+        stream.innerHTML = userPosts
+          .map(post => window.app.renderPostCard(post))
+          .join('');
+
+      } catch (error) {
+        console.error('Failed to load profile posts:', error);
+
+        const paragraph = document.createElement('p');
+        paragraph.className = 'profile-error-message';
+        paragraph.textContent =
+          'Failed to load posts. Check the browser console and backend.';
+        stream.replaceChildren(paragraph);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadUserProfile);
+  </script>
+</body>
+</html>

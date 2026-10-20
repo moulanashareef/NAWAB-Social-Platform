@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Nawab Social Platform (Nawab) — Responsive Media Queries
+   Author: Nawab | Nawab Social Platform
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .layout-container {
+    grid-template-columns: 80px 1fr 300px;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+  .brand-logo-social .brand-name-text,
+  .brand-tag-task,
+  .nav-menu-item span,
+  .user-mini-details {
+    display: none;
+  }
+  .nav-menu-item {
+    justify-content: center;
+    padding: 0.85rem;
+  }
+  .user-mini-card {
+    justify-content: center;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .layout-container {
+    grid-template-columns: 1fr;
+  }
+  .sidebar-right {
+    display: none; /* Can be viewed in a separate tab or drawer on mobile */
+  }
+  .sidebar-left {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--bg-card-solid);
+    border-top: 1px solid var(--border-subtle);
+    z-index: 100;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .brand-logo-social, .user-mini-card {
+    display: none;
+  }
+  .nav-links-menu {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .main-feed-column {
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile-avatar-huge {
+    width: 5rem;
+    height: 5rem;
+  }
+  .profile-stats-bar {
+    gap: 1rem;
+  }
+}
+
+.discovery-bar{display:flex;align-items:center;gap:.65rem;padding:.75rem .9rem;margin-bottom:1rem;border:1px solid var(--border-subtle);border-radius:16px;background:var(--bg-card-solid)}
+.discovery-icon{font-size:1.5rem;color:var(--accent-primary)}#userSearchInput{min-width:0;flex:1;background:transparent;border:0;color:var(--text-main);outline:none;font-size:.9rem}.discovery-bar button{border:1px solid var(--border-subtle);border-radius:10px;background:rgba(114,242,197,.1);color:var(--accent-primary);padding:.55rem .8rem;cursor:pointer;font-weight:700;font-size:.8rem}.discovery-bar .notification-button{white-space:nowrap;background:transparent;color:var(--text-sub)}.search-results,.activity-panel{margin:-.4rem 0 1rem;padding:.8rem;border:1px solid var(--border-subtle);border-radius:14px;background:var(--bg-card-solid)}.search-result-person{display:flex;align-items:center;gap:.75rem;padding:.65rem;border-radius:10px}.search-result-person:hover{background:var(--bg-hover)}.search-result-person img{width:42px;height:42px;border-radius:50%;object-fit:cover}.search-result-person span{display:flex;flex:1;min-width:0;flex-direction:column}.search-result-person small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted);font-size:.75rem}.search-result-person b{font-size:.75rem;color:var(--accent-primary)}.search-empty,.activity-panel p{padding:.7rem;color:var(--text-sub);font-size:.85rem}.activity-panel a{color:var(--accent-primary);font-size:.85rem}@media(max-width:600px){.discovery-bar{flex-wrap:wrap}.discovery-icon{display:none}#userSearchInput{flex-basis:60%}.discovery-bar button{padding:.5rem}}
+
+/* Nawab 2.0 personal notification panel */
+.activity-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .7rem .8rem;border-bottom:1px solid var(--border-subtle)}.activity-panel-heading span{font-size:.72rem;color:var(--accent-primary);font-weight:700}.activity-item{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem;border-radius:10px;border-bottom:1px solid var(--border-subtle)}.activity-item:last-child{border-bottom:0}.activity-item.unread{background:rgba(114,242,197,.06)}.activity-item img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:0 0 38px}.activity-item div{min-width:0;flex:1}.activity-item p{padding:0;margin:0;color:var(--text-sub);font-size:.85rem;line-height:1.5}.activity-item p b{color:var(--text-main)}.activity-item small{display:block;margin-top:.2rem;color:var(--text-muted);font-size:.72rem}

@@ -1,0 +1,28 @@
+{
+  "name": "nawab-social-platform-backend",
+  "version": "2.0.0",
+  "description": "Nawab Social Platform REST API with persistent notifications and creator discovery",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check database/db.js && node --check middleware/auth.js"
+  },
+  "keywords": [
+    "nawab",
+    "social-platform",
+    "fullstack",
+    "express"
+  ],
+  "author": "Nawab",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
